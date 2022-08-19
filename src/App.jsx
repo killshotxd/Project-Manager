@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
 
 const App = () => {
@@ -8,8 +9,8 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<h1>Login</h1>} />
-          <Route path="/signUp" element={<h1>SignUp</h1>} />
+          <Route path="/login" element={<Auth />} />
+          <Route path="/signUp" element={<Auth signUp />} />
           <Route path="/account" element={<h1>Account</h1>} />
           <Route path="/" element={<Home />} />
         </Routes>

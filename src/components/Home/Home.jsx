@@ -2,7 +2,14 @@ import React from "react";
 import styles from "./Home.module.css";
 import designIcon from "../../assets/designer.svg";
 import { ArrowRight } from "react-feather";
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
+  const navigate = useNavigate();
+  const handleNextBtnClick = () => {
+    navigate("/login");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -11,7 +18,7 @@ const Home = () => {
           <p className={styles.subHeading}>
             One stop destination for all software development projects.
           </p>
-          <button>
+          <button onClick={handleNextBtnClick}>
             Get Started <ArrowRight />
           </button>
         </div>
