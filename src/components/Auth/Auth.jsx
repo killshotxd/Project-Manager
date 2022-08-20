@@ -16,9 +16,27 @@ const Auth = (props) => {
 
         <InputControl label="Name" placeholder="Enter your name" />
         <InputControl label="Email" placeholder="Enter your email" />
-        <InputControl label="Password" placeholder="Enter your password" />
+        <InputControl
+          label="Password"
+          placeholder="Enter your password"
+          isPassword
+        />
+
+        <p className={styles.error}> This is an error </p>
 
         <button>{isSignUp ? "SignUp" : "Login"}</button>
+
+        <div className={styles.bottom}>
+          {isSignUp ? (
+            <p>
+              Already have an account ? <Link to="/login">Login here</Link>
+            </p>
+          ) : (
+            <p>
+              New here ? <Link to="/signUp">Create an account</Link>
+            </p>
+          )}
+        </div>
       </form>
     </div>
   );
