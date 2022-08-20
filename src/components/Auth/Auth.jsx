@@ -15,12 +15,28 @@ const Auth = (props) => {
 
   const navigate = useNavigate();
 
+  const handleLogin = () => {};
+
+  const handleSignUp = () => {
+    if (!values.name || !values.email || !values.password) {
+      setErrMsg("All fields are required");
+    }
+    return;
+  };
+
+  const handleSubmission = (event) => {
+    event.preventDefault();
+
+    if (isSignUp) handleSignUp();
+    else handleLogin();
+  };
+
   return (
     <div className={styles.container}>
       <p className={styles.smallLink}>
         <Link to="/">{"< Back to Home"}</Link>
       </p>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmission}>
         <p className={styles.heading}>{isSignUp ? "SignUp" : "Login"}</p>
 
         <InputControl
