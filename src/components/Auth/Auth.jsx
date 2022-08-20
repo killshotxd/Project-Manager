@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import InputControl from "../InputControl/InputControl";
 import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase";
 import styles from "./Auth.module.css";
+
 const Auth = (props) => {
   const isSignUp = props.signUp ? true : false;
 
@@ -12,7 +15,7 @@ const Auth = (props) => {
   });
 
   const [errMsg, setErrMsg] = useState("");
-
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {};
@@ -20,8 +23,19 @@ const Auth = (props) => {
   const handleSignUp = () => {
     if (!values.name || !values.email || !values.password) {
       setErrMsg("All fields are required");
+      return;
     }
-    return;
+
+    setSubmitButtonDisabled(true);
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then((response) => {
+        setSubmitButtonDisabled(false);
+        console.log(response);
+      })
+      .catch((err) => {
+        setSubmitButtonDisabled(false);
+        setErrMsg(err.message);
+      });
   };
 
   const handleSubmission = (event) => {
@@ -66,7 +80,9 @@ const Auth = (props) => {
 
         <p className={styles.error}> {errMsg} </p>
 
-        <button type="submit">{isSignUp ? "SignUp" : "Login"}</button>
+        <button type="submit" disabled={submitButtonDisabled}>
+          {isSignUp ? "SignUp" : "Login"}
+        </button>
 
         <div className={styles.bottom}>
           {isSignUp ? (
