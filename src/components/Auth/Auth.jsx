@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import InputControl from "../InputControl/InputControl";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Auth.module.css";
 const Auth = (props) => {
   const isSignUp = props.signUp ? true : false;
+
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [errMsg, setErrMsg] = useState("");
+
   const navigate = useNavigate();
 
   return (
@@ -14,17 +23,34 @@ const Auth = (props) => {
       <form className={styles.form}>
         <p className={styles.heading}>{isSignUp ? "SignUp" : "Login"}</p>
 
-        <InputControl label="Name" placeholder="Enter your name" />
-        <InputControl label="Email" placeholder="Enter your email" />
+        <InputControl
+          label="Name"
+          placeholder="Enter your name"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, name: event.target.value }))
+          }
+        />
+
+        <InputControl
+          label="Email"
+          placeholder="Enter your email"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, email: event.target.value }))
+          }
+        />
+
         <InputControl
           label="Password"
           placeholder="Enter your password"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, password: event.target.value }))
+          }
           isPassword
         />
 
-        <p className={styles.error}> This is an error </p>
+        <p className={styles.error}> {errMsg} </p>
 
-        <button>{isSignUp ? "SignUp" : "Login"}</button>
+        <button type="submit">{isSignUp ? "SignUp" : "Login"}</button>
 
         <div className={styles.bottom}>
           {isSignUp ? (
