@@ -6,6 +6,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column-reverse;
+  gap: 1rem;
 }
 
 .form {
@@ -22,9 +24,6 @@
 }
 
 .smallLink {
-  position: absolute;
-  left: 0%;
-  top: -22px;
 }
 
 .smallLink a {
