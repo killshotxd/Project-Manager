@@ -4,10 +4,14 @@ import designIcon from "../../assets/designer.svg";
 import { ArrowRight } from "react-feather";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = (props) => {
   const navigate = useNavigate();
+
+  const isAuth = props.auth ? true : false;
+
   const handleNextBtnClick = () => {
-    navigate("/login");
+    if (isAuth) navigate("/account");
+    else navigate("/login");
   };
 
   return (
@@ -19,7 +23,8 @@ const Home = () => {
             One stop destination for all software development projects.
           </p>
           <button onClick={handleNextBtnClick}>
-            Get Started <ArrowRight />
+            {isAuth ? "Manage your Projects" : "Get Started"}
+            <ArrowRight />
           </button>
         </div>
 
