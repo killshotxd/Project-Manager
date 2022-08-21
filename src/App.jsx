@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
+import { auth, getUserFromDb } from "./Firebase";
 
 const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+  const [userDetails, setUserDetails] = useState([]);
+
+  const fetchUserDetails = async (uid) => {
+    const userDetails = await getUserFromDb(uid);
+    setUserDetails(userDetails);
+  };
+
+  useEffect(() => {
+    const listener = auth.onAuthStateChanged((user) => {
+      if (!user) return;
+
+      setIsAuth(true);
+      fetchUserDetails(user.uid);
+    });
+    return () => listener();
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
