@@ -32,7 +32,7 @@ const Auth = (props) => {
         const userId = response.user.uid;
         await updateUserDb({ name: values.name, email: values.email }, userId);
         setSubmitButtonDisabled(false);
-        console.log(response);
+        navigate("/");
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
