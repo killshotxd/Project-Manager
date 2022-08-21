@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { EyeOff, Eye } from "react-feather";
 import styles from "./InputControl.module.css";
 const InputControl = ({ label, isPassword, ...props }) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <div className={styles.container}>
