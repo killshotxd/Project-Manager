@@ -133,5 +133,3 @@ const Auth = (props) => {
 };
 
 export default Auth;
-
-//42m
