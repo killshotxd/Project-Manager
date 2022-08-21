@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InputControl from "../InputControl/InputControl";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Firebase";
+import { auth, updateUserDb } from "../../Firebase";
 import styles from "./Auth.module.css";
 
 const Auth = (props) => {
@@ -28,7 +28,9 @@ const Auth = (props) => {
 
     setSubmitButtonDisabled(true);
     createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then((response) => {
+      .then(async (response) => {
+        const userId = response.user.uid;
+        await updateUserDb({ name: values.name, email: values.email }, userId);
         setSubmitButtonDisabled(false);
         console.log(response);
       })
@@ -101,3 +103,5 @@ const Auth = (props) => {
 };
 
 export default Auth;
+
+//42m
