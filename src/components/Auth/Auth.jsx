@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import InputControl from "../InputControl/InputControl";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, updateUserDb } from "../../Firebase";
 import styles from "./Auth.module.css";
 
@@ -16,9 +19,32 @@ const Auth = (props) => {
 
   const [errMsg, setErrMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleLogin = () => {};
+  // -----------------Login Part ---------------
+
+  const handleLogin = () => {
+    if (!values.email || !values.password) {
+      setErrMsg("All fields are required");
+      return;
+    }
+
+    setSubmitButtonDisabled(true);
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then(async () => {
+        setSubmitButtonDisabled(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        setSubmitButtonDisabled(false);
+        setErrMsg(err.message);
+      });
+  };
+
+  // ----------------Login Part End ---------------
+
+  // -----------------SignUp Part ---------------
 
   const handleSignUp = () => {
     if (!values.name || !values.email || !values.password) {
@@ -40,6 +66,8 @@ const Auth = (props) => {
       });
   };
 
+  // -----------------SignUp Part End ---------------
+
   const handleSubmission = (event) => {
     event.preventDefault();
 
@@ -55,13 +83,15 @@ const Auth = (props) => {
       <form className={styles.form} onSubmit={handleSubmission}>
         <p className={styles.heading}>{isSignUp ? "SignUp" : "Login"}</p>
 
-        <InputControl
-          label="Name"
-          placeholder="Enter your name"
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, name: event.target.value }))
-          }
-        />
+        {isSignUp && (
+          <InputControl
+            label="Name"
+            placeholder="Enter your name"
+            onChange={(event) =>
+              setValues((prev) => ({ ...prev, name: event.target.value }))
+            }
+          />
+        )}
 
         <InputControl
           label="Email"
