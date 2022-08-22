@@ -17,6 +17,13 @@ const Account = (props) => {
   );
   const imagePicker = useRef();
 
+  const [userProfileValues, setUserProfileValues] = useState({
+    name: userDetails.name || "",
+    designation: userDetails.designation || "",
+    github: userDetails.github || "",
+    linkedin: userDetails.linkedin || "",
+  });
+
   const handleLogout = async () => {
     await signOut(auth);
   };
@@ -88,13 +95,30 @@ const Account = (props) => {
 
           <div className={styles.right}>
             <div className={styles.row}>
-              <InputControl label="Name" />
+              <InputControl
+                label="Name"
+                placeholder="Enter your name"
+                value={userProfileValues.name}
+                onChange={(event) => handleInputChange(event, "name")}
+              />
               <InputControl
                 label="Title"
                 placeholder="e.g Front-End Developer"
+                value={userProfileValues.designation}
+                onChange={(event) => handleInputChange(event, "designation")}
               />
-              <InputControl label="Github" placeholder="Github Link" />
-              <InputControl label="LinkedIn" placeholder="LinkedIn Link" />
+              <InputControl
+                label="Github"
+                placeholder="Github Link"
+                value={userProfileValues.github}
+                onChange={(event) => handleInputChange(event, "github")}
+              />
+              <InputControl
+                label="LinkedIn"
+                placeholder="LinkedIn Link"
+                value={userProfileValues.linkedin}
+                onChange={(event) => handleInputChange(event, "linkedin")}
+              />
             </div>
             <button className={styles.saveButton}>Save Details</button>
           </div>
