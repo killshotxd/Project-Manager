@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import InputControl from "../../InputControl/InputControl";
+import { X } from "react-feather";
 import Modal from "../../Modal/Modal";
 import styles from "./ProjectForm.module.css";
 const ProjectForm = (props) => {
@@ -28,9 +29,21 @@ const ProjectForm = (props) => {
 
   //   -----------Functions-------------------------
 
+  const handlePointUpdate = (value, index) => {
+    const tempPoints = [...values.points];
+    tempPoints[index] = value;
+    setValues((prev) => ({ ...prev, points: tempPoints }));
+  };
+
   const handleAddPoint = () => {
     if (values.points.length > 4) return;
     setValues((prev) => ({ ...prev, points: [...values.points, ""] }));
+  };
+
+  const handlePointDelete = (index) => {
+    const tempPoints = [...values.points];
+    tempPoints.splice(index, 1);
+    setValues((prev) => ({ ...prev, points: tempPoints }));
   };
 
   //   -----------------------------------------------
@@ -103,9 +116,23 @@ const ProjectForm = (props) => {
                   + Add point
                 </p>
               </div>
-
-              <InputControl />
-              <InputControl />
+              <div className={styles.inputs}>
+                {values.points.map((item, index) => (
+                  <div className={styles.input} key={index}>
+                    <InputControl
+                      key={index}
+                      placeholder="Type something..."
+                      value={item}
+                      onChange={(event) =>
+                        handlePointUpdate(event.target.value, index)
+                      }
+                    />
+                    {index > 1 && (
+                      <X onClick={() => handlePointDelete(index)} />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
