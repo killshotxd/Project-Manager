@@ -25,6 +25,15 @@ const ProjectForm = (props) => {
   const [submitButtonDisabled, setSetSubmitButtonDisabled] = useState(false);
 
   //   ---------------------------------------------
+
+  //   -----------Functions-------------------------
+
+  const handleAddPoint = () => {
+    if (values.points.length > 4) return;
+    setValues((prev) => ({ ...prev, points: [...values.points, ""] }));
+  };
+
+  //   -----------------------------------------------
   return (
     <Modal onClose={() => (props.onClose ? props.onClose() : "")}>
       <div className={styles.container}>
@@ -40,17 +49,59 @@ const ProjectForm = (props) => {
               </p>
             </div>
 
-            <InputControl label="Github" />
-            <InputControl label="Deployed/Live Link" />
+            <InputControl
+              label="Github"
+              value={values.github}
+              placeholder="Project repository link"
+              onChange={(event) =>
+                setValues((prev) => ({
+                  ...prev,
+                  github: event.target.value,
+                }))
+              }
+            />
+            <InputControl
+              label="Deployed/Live Link"
+              placeholder="Project Deployed link"
+              value={values.link}
+              onChange={(event) =>
+                setValues((prev) => ({
+                  ...prev,
+                  link: event.target.value,
+                }))
+              }
+            />
           </div>
           <div className={styles.right}>
-            <InputControl label="Project Name" />
-            <InputControl label="Project Overview" />
+            <InputControl
+              label="Project Name"
+              placeholder="Enter project title"
+              value={values.title}
+              onChange={(event) =>
+                setValues((prev) => ({
+                  ...prev,
+                  title: event.target.value,
+                }))
+              }
+            />
+            <InputControl
+              label="Project Overview"
+              placeholder="Project's brief overview"
+              value={values.overview}
+              onChange={(event) =>
+                setValues((prev) => ({
+                  ...prev,
+                  overview: event.target.value,
+                }))
+              }
+            />
 
             <div className={styles.description}>
               <div className={styles.top}>
                 <p className={styles.title}>Project Description</p>
-                <p className={styles.link}>+ Add point</p>
+                <p className={styles.link} onClick={handleAddPoint}>
+                  + Add point
+                </p>
               </div>
 
               <InputControl />
