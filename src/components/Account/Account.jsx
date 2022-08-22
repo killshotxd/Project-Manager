@@ -133,7 +133,7 @@ const Account = (props) => {
                 label="Name"
                 placeholder="Enter your name"
                 value={userProfileValues.name}
-                onChange={(event) => handleInputChange(event, "name")}
+                // onChange={(event) => handleInputChange(event, "name")}
               />
               <InputControl
                 label="Title"
