@@ -10,6 +10,8 @@ const Account = (props) => {
   const userDetails = props.userDetails;
   const isAuth = props.auth;
   const [progress, setProgress] = useState(0);
+  const [profileImageUploadStarted, setProfileImageUploadStarted] =
+    useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState(
     "https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png"
   );
@@ -26,7 +28,7 @@ const Account = (props) => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
+    setProfileImageUploadStarted(true);
     uploadImage(
       file,
       (progress) => {
@@ -34,9 +36,13 @@ const Account = (props) => {
       },
       (url) => {
         setProfileImageUrl(url);
+        setProfileImageUploadStarted(false);
         setProgress(0);
       },
-      (err) => console.log("Error->", err)
+      (err) => {
+        console.log("Error->", err);
+        setProfileImageUploadStarted(false);
+      }
     );
   };
 
@@ -69,7 +75,7 @@ const Account = (props) => {
               </div>
             </div>
 
-            {progress ? (
+            {profileImageUploadStarted ? (
               <p className={styles.progress}>
                 {progress === 100
                   ? "Getting image url..."
