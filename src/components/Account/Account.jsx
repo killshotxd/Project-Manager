@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Account.module.css";
 import { Camera, LogOut } from "react-feather";
 import InputControl from "../InputControl/InputControl";
@@ -9,7 +9,10 @@ import { auth, uploadImage } from "../../Firebase";
 const Account = (props) => {
   const userDetails = props.userDetails;
   const isAuth = props.auth;
-
+  const [progress, setProgress] = useState(0);
+  const [profileImageUrl, setProfileImageUrl] = useState(
+    "https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png"
+  );
   const imagePicker = useRef();
 
   const handleLogout = async () => {
@@ -24,12 +27,17 @@ const Account = (props) => {
     const file = event.target.files[0];
     if (!file) return;
 
-    // uploadImage(
-    //   file,
-    //   (progress) => {},
-    //   (url) => console.log("Uploaded->", url),
-    //   (err) => console.log("Error->", err)
-    // );
+    uploadImage(
+      file,
+      (progress) => {
+        setProgress(progress);
+      },
+      (url) => {
+        setProfileImageUrl(url);
+        setProgress(0);
+      },
+      (err) => console.log("Error->", err)
+    );
   };
 
   return isAuth ? (
@@ -55,14 +63,19 @@ const Account = (props) => {
         <div className={styles.profile}>
           <div className={styles.left}>
             <div className={styles.image}>
-              <img
-                src="https://avatars.githubusercontent.com/u/89957432?v=4"
-                alt="profile"
-              />
+              <img src={profileImageUrl} alt="profile" />
               <div className={styles.camera} onClick={handleCameraClick}>
                 <Camera />
               </div>
             </div>
+
+            {progress ? (
+              <p className={styles.progress}>
+                {progress.toFixed(2)}% Uploading..
+              </p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className={styles.right}>
