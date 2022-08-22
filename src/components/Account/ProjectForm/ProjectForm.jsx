@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import InputControl from "../../InputControl/InputControl";
 import Modal from "../../Modal/Modal";
 import styles from "./ProjectForm.module.css";
 const ProjectForm = (props) => {
+  const defaults = props.default;
+
   // --------States----------------
 
   const [values, setValues] = useState({
@@ -57,7 +59,12 @@ const ProjectForm = (props) => {
           </div>
         </div>
         <div className={styles.footer}>
-          <p className={styles.footer}>Cancel</p>
+          <p
+            className={styles.cancel}
+            onClick={() => (props.onClose ? props.onClose() : "")}
+          >
+            Cancel
+          </p>
           <button className="button">Submit</button>
         </div>
       </div>
