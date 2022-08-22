@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
+import Account from "./components/Account/Account";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
 import Loader from "./components/Loader/Loader";
@@ -48,7 +49,7 @@ const App = () => {
                 <Route path="/signUp" element={<Auth signUp />} />
               </>
             )}
-            <Route path="/account" element={<h1>Account</h1>} />
+            <Route path="/account" element={<Account />} />
             <Route path="/" element={<Home auth={isAuth} />} />
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
