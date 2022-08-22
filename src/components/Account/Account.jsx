@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Account.module.css";
 import { Camera, LogOut } from "react-feather";
 import InputControl from "../InputControl/InputControl";
@@ -7,6 +7,8 @@ import { signOut } from "firebase/auth";
 import { auth, uploadImage } from "../../Firebase";
 
 const Account = (props) => {
+  // --------------States----------------------
+
   const userDetails = props.userDetails;
   const isAuth = props.auth;
   const [progress, setProgress] = useState(0);
@@ -23,6 +25,17 @@ const Account = (props) => {
     github: userDetails.github || "",
     linkedin: userDetails.linkedin || "",
   });
+
+  const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
+  const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [projectsLoaded, setProjectsLoaded] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [isEditProjectModal, setIsEditProjectModal] = useState(false);
+  const [editProject, setEditProject] = useState({});
+
+  // ------------------States End-------------------
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -51,6 +64,27 @@ const Account = (props) => {
         setProfileImageUploadStarted(false);
       }
     );
+  };
+
+  const handleInputChange = (event, property) => {
+    setShowSaveDetailsButton(true);
+
+    setUserProfileValues((prev) => ({
+      ...prev,
+      [property]: event.target.value,
+    }));
+  };
+
+  const saveDetailsToDatabase = async () => {
+    if (!userProfileValues.name) {
+      setErrorMessage("Name required");
+      return;
+    }
+
+    setSaveButtonDisabled(true);
+    await updateUserDatabase({ ...userProfileValues }, userDetails.uid);
+    setSaveButtonDisabled(false);
+    setShowSaveDetailsButton(false);
   };
 
   return isAuth ? (
@@ -120,7 +154,18 @@ const Account = (props) => {
                 onChange={(event) => handleInputChange(event, "linkedin")}
               />
             </div>
-            <button className={styles.saveButton}>Save Details</button>
+            <div className={styles.footer}>
+              <p className={styles.error}>{errorMessage}</p>
+              {showSaveDetailsButton && (
+                <button
+                  disabled={saveButtonDisabled}
+                  className={"button"}
+                  onClick={saveDetailsToDatabase}
+                >
+                  Save Details
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
