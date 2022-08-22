@@ -4,7 +4,7 @@ import { Camera, LogOut } from "react-feather";
 import InputControl from "../InputControl/InputControl";
 import { Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth, uploadImage } from "../../Firebase";
+import { auth, uploadImage, updateUserDb } from "../../Firebase";
 
 const Account = (props) => {
   // --------------States----------------------
@@ -82,7 +82,7 @@ const Account = (props) => {
     }
 
     setSaveButtonDisabled(true);
-    await updateUserDatabase({ ...userProfileValues }, userDetails.uid);
+    await updateUserDb({ ...userProfileValues }, userDetails.uid);
     setSaveButtonDisabled(false);
     setShowSaveDetailsButton(false);
   };
