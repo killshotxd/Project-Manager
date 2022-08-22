@@ -71,7 +71,9 @@ const Account = (props) => {
 
             {progress ? (
               <p className={styles.progress}>
-                {progress.toFixed(2)}% Uploading..
+                {progress === 100
+                  ? "Getting image url..."
+                  : `${progress.toFixed(2)} % Uploading..`}
               </p>
             ) : (
               ""
