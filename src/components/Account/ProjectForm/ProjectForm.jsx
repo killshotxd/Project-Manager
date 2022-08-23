@@ -9,7 +9,7 @@ import { addProjectsInDb, uploadImage } from "../../../Firebase";
 const ProjectForm = (props) => {
   const fileInputRef = useRef();
   const defaults = props.default;
-
+  //56m
   // --------States----------------
 
   const [values, setValues] = useState({
@@ -105,6 +105,7 @@ const ProjectForm = (props) => {
     setSetSubmitButtonDisabled(true);
     await addProjectsInDb({ ...values, refUser: props.uid });
     setSetSubmitButtonDisabled(false);
+    if (props.onClose) props.onClose();
   };
 
   // --------------------------
