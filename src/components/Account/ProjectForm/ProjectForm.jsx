@@ -72,7 +72,36 @@ const ProjectForm = (props) => {
     );
   };
 
-  const handleSubmission = () => {};
+  const validateForm = () => {
+    const actualPoints = values.points.filter((item) => item.trim());
+
+    let isValid = true;
+
+    if (!values.thumbnail) {
+      isValid = false;
+      setErrorMessage("Thumbnail is required");
+    } else if (!values.github) {
+      isValid = false;
+      setErrorMessage("Project's repository link is required");
+    } else if (!values.title) {
+      isValid = false;
+      setErrorMessage("Project's Title is required");
+    } else if (!values.overview) {
+      isValid = false;
+      setErrorMessage("Project's description is required");
+    } else if (!actualPoints.length) {
+      isValid = false;
+      setErrorMessage("Description Required");
+    } else if (actualPoints.length < 2) {
+      isValid = false;
+      setErrorMessage("Minimum 2 description points required");
+    }
+    return isValid;
+  };
+
+  const handleSubmission = () => {
+    if (!validateForm()) return;
+  };
 
   //   -----------------------------------------------
   return (
@@ -183,7 +212,9 @@ const ProjectForm = (props) => {
           >
             Cancel
           </p>
-          <button className="button">Submit</button>
+          <button onClick={handleSubmission} className="button">
+            Submit
+          </button>
         </div>
       </div>
     </Modal>
