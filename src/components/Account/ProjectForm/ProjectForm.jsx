@@ -4,7 +4,7 @@ import { X } from "react-feather";
 import Modal from "../../Modal/Modal";
 import styles from "./ProjectForm.module.css";
 
-import { uploadImage } from "../../../Firebase";
+import { addProjectsInDb, uploadImage } from "../../../Firebase";
 
 const ProjectForm = (props) => {
   const fileInputRef = useRef();
@@ -101,9 +101,11 @@ const ProjectForm = (props) => {
 
   const handleSubmission = () => {
     if (!validateForm()) return;
+
+    addProjectsInDb({ ...values, refUser: props.uid });
   };
 
-  //   -----------------------------------------------
+  // --------------------------
   return (
     <Modal onClose={() => (props.onClose ? props.onClose() : "")}>
       <div className={styles.container}>

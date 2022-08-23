@@ -7,7 +7,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { doc, getFirestore, setDoc, getDoc } from "firebase/firestore";
+import { doc, getFirestore, setDoc, getDoc, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB7h4pfdXHISDHN4X2IOPA7QGmcLZrl6ok",
@@ -83,6 +83,24 @@ const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
     }
   );
 };
+
+// --------------------Update Projects----------------
+
+const addProjectsInDb = async (project) => {
+  if (typeof user !== "object") return;
+  const collectionRef = doc(db, "projects");
+  await addDoc(collectionRef, { ...project });
+};
+
+// --------------------------------------------------------------
 // --------------Export Handler--------------
 
-export { firebaseApp, auth, db, updateUserDb, getUserFromDb, uploadImage };
+export {
+  firebaseApp,
+  auth,
+  db,
+  updateUserDb,
+  getUserFromDb,
+  uploadImage,
+  addProjectsInDb,
+};
