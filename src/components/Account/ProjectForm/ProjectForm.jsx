@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import InputControl from "../../InputControl/InputControl";
 import { X } from "react-feather";
 import Modal from "../../Modal/Modal";
 import styles from "./ProjectForm.module.css";
+
+import { uploadImage } from "../../../Firebase";
+
 const ProjectForm = (props) => {
+  const fileInputRef = useRef();
   const defaults = props.default;
 
   // --------States----------------
@@ -46,20 +50,55 @@ const ProjectForm = (props) => {
     setValues((prev) => ({ ...prev, points: tempPoints }));
   };
 
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setImageUploadStarted(true);
+    uploadImage(
+      file,
+      (progress) => {
+        setImageUploadProgress(progress);
+      },
+      (url) => {
+        setImageUploadStarted(false);
+        setImageUploadProgress(0);
+        setValues((prev) => ({ ...prev, thumbnail: url }));
+      },
+      (error) => {
+        setImageUploadStarted(false);
+        setErrorMessage(error);
+      }
+    );
+  };
+
+  const handleSubmission = () => {};
+
   //   -----------------------------------------------
   return (
     <Modal onClose={() => (props.onClose ? props.onClose() : "")}>
       <div className={styles.container}>
+        <input
+          ref={fileInputRef}
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleFileInputChange}
+        />
         <div className={styles.inner}>
           <div className={styles.left}>
             <div className={styles.image}>
               <img
-                src="https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png"
-                alt="Thumbnail"
+                src={
+                  values.thumbnail ||
+                  "https://www.agora-gallery.com/advice/wp-content/uploads/2015/10/image-placeholder-300x200.png"
+                }
+                onClick={() => fileInputRef.current.click()}
               />
-              <p>
-                <span>40%</span> Uploaded...
-              </p>
+              {imageUploadStarted && (
+                <p>
+                  <span>{imageUploadProgress.toFixed(2)}%</span> Uploaded...
+                </p>
+              )}
             </div>
 
             <InputControl
@@ -136,6 +175,7 @@ const ProjectForm = (props) => {
             </div>
           </div>
         </div>
+        <p className={styles.error}>{errorMessage}</p>
         <div className={styles.footer}>
           <p
             className={styles.cancel}
