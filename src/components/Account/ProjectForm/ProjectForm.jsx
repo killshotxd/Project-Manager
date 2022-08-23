@@ -95,14 +95,16 @@ const ProjectForm = (props) => {
     } else if (actualPoints.length < 2) {
       isValid = false;
       setErrorMessage("Minimum 2 description points required");
-    }
+    } else setErrorMessage("");
+
     return isValid;
   };
 
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
     if (!validateForm()) return;
-
-    addProjectsInDb({ ...values, refUser: props.uid });
+    setSetSubmitButtonDisabled(true);
+    await addProjectsInDb({ ...values, refUser: props.uid });
+    setSetSubmitButtonDisabled(false);
   };
 
   // --------------------------
@@ -214,7 +216,11 @@ const ProjectForm = (props) => {
           >
             Cancel
           </p>
-          <button onClick={handleSubmission} className="button">
+          <button
+            onClick={handleSubmission}
+            disabled={submitButtonDisabled}
+            className="button"
+          >
             Submit
           </button>
         </div>

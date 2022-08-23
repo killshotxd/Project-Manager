@@ -7,7 +7,14 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { doc, getFirestore, setDoc, getDoc, addDoc } from "firebase/firestore";
+import {
+  doc,
+  getFirestore,
+  setDoc,
+  getDoc,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB7h4pfdXHISDHN4X2IOPA7QGmcLZrl6ok",
@@ -87,8 +94,8 @@ const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
 // --------------------Update Projects----------------
 
 const addProjectsInDb = async (project) => {
-  if (typeof user !== "object") return;
-  const collectionRef = doc(db, "projects");
+  if (typeof project !== "object") return;
+  const collectionRef = collection(db, "projects");
   await addDoc(collectionRef, { ...project });
 };
 
