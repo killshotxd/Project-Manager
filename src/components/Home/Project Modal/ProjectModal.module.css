@@ -76,3 +76,22 @@
   font-size: 1rem;
   color: darkslategray;
 }
+
+@media screen and (max-width: 665px) {
+  .inner {
+    flex-direction: column;
+  }
+
+  .container {
+    min-width: 364px;
+  }
+
+  .left .image {
+    height: 363px;
+    width: 309px;
+  }
+
+  .left .links {
+    gap: 3rem;
+  }
+}

@@ -112,3 +112,17 @@
   font-size: 1rem;
   padding: 20px;
 }
+
+@media screen and (max-width: 665px) {
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .header {
+    flex-direction: column;
+  }
+}
