@@ -109,8 +109,14 @@ const Account = (props) => {
     }
     setProjectsLoaded(true);
     let tempProjects = [];
-    result.forEach((doc) => tempProjects.push(doc.data()));
+    result.forEach((doc) => tempProjects.push({ ...doc.data(), pid: doc.id }));
     setProjects(tempProjects);
+  };
+
+  const handleEditClick = (project) => {
+    setIsEditProjectModal(true);
+    setEditProject(project);
+    setShowProjectForm(true);
   };
 
   useEffect(() => {
@@ -124,6 +130,8 @@ const Account = (props) => {
           onSubmission={fetchAllProjects}
           onClose={() => setShowProjectForm(false)}
           uid={userDetails.uid}
+          isEdit={isEditProjectModal}
+          defaultDetail={editProject}
         />
       )}
 

@@ -9,7 +9,8 @@ import { addProjectsInDb, uploadImage } from "../../../Firebase";
 const ProjectForm = (props) => {
   const fileInputRef = useRef();
   const defaults = props.default;
-  //56m
+  const isEdit = props.isEdit ? true : false;
+
   // --------States----------------
 
   const [values, setValues] = useState({
