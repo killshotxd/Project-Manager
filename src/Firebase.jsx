@@ -17,6 +17,7 @@ import {
   getDocs,
   query,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -105,7 +106,7 @@ const addProjectsInDb = async (project) => {
 // ---------------Update Project----------------------
 
 const updateProjectInDb = async (project, pid) => {
-  if (typeof project !== object) return;
+  if (typeof project !== "object") return;
 
   const docRef = doc(db, "projects", pid);
 
@@ -127,6 +128,12 @@ const getAllProjectsForUser = async (uid) => {
   return await getDocs(dbQuery);
 };
 
+// -----------Delete Projects-------------
+const deleteProject = async (pid) => {
+  const docRef = doc(db, "projects", pid);
+  await deleteDoc(docRef);
+};
+
 // --------------------------------------------------------------
 // --------------Export Handler--------------
 
@@ -141,4 +148,5 @@ export {
   updateProjectInDb,
   getAllProjectsForUser,
   getAllProjects,
+  deleteProject,
 };

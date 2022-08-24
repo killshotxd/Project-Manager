@@ -8,6 +8,7 @@ import {
   auth,
   uploadImage,
   updateUserDb,
+  deleteProject,
   getAllProjectsForUser,
 } from "../../Firebase";
 import Loader from "../Loader/Loader";
@@ -108,6 +109,7 @@ const Account = (props) => {
       return;
     }
     setProjectsLoaded(true);
+
     let tempProjects = [];
     result.forEach((doc) => tempProjects.push({ ...doc.data(), pid: doc.id }));
     setProjects(tempProjects);
@@ -117,6 +119,11 @@ const Account = (props) => {
     setIsEditProjectModal(true);
     setEditProject(project);
     setShowProjectForm(true);
+  };
+
+  const handleDeletion = async (pid) => {
+    await deleteProject(pid);
+    fetchAllProjects();
   };
 
   useEffect(() => {
@@ -131,7 +138,7 @@ const Account = (props) => {
           onClose={() => setShowProjectForm(false)}
           uid={userDetails.uid}
           isEdit={isEditProjectModal}
-          defaultDetail={editProject}
+          default={editProject}
         />
       )}
 

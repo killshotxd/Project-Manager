@@ -107,6 +107,7 @@ const ProjectForm = (props) => {
 
   const handleSubmission = async () => {
     if (!validateForm()) return;
+
     setSetSubmitButtonDisabled(true);
     if (isEdit)
       await updateProjectInDb({ ...values, refUser: props.uid }, defaults.pid);
