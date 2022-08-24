@@ -56,9 +56,9 @@ const Home = (props) => {
 
       <div className={styles.header}>
         <div className={styles.left}>
-          <p className={styles.heading}>Project Fair</p>
+          <p className={styles.heading}>Project Manager</p>
           <p className={styles.subHeading}>
-            One stop destination for all software development projects.
+            One stop destination for all your WebApps/WebSites 🚀
           </p>
           <button onClick={handleNextBtnClick}>
             {isAuth ? "Manage your Projects" : "Get Started"}
