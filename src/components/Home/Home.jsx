@@ -15,6 +15,8 @@ const Home = (props) => {
 
   const [projectsLoaded, setProjectsLoaded] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [showProjectModal, setShowProjectModal] = useState(false);
+  const [projectDetails, setProjectDetails] = useState({});
 
   const handleNextBtnClick = () => {
     if (isAuth) navigate("/account");
@@ -34,13 +36,24 @@ const Home = (props) => {
     setProjects(tempProjects);
   };
 
+  const handleProjectCardClick = (project) => {
+    setShowProjectModal(true);
+    setProjectDetails(project);
+  };
+
   useEffect(() => {
     fetchAllProjects();
   }, []);
 
   return (
     <div className={styles.container}>
-      <ProjectModal />
+      {showProjectModal && (
+        <ProjectModal
+          onClose={() => setShowProjectModal(false)}
+          details={projectDetails}
+        />
+      )}
+
       <div className={styles.header}>
         <div className={styles.left}>
           <p className={styles.heading}>Project Fair</p>
@@ -64,7 +77,11 @@ const Home = (props) => {
           {projectsLoaded ? (
             projects.length > 0 ? (
               projects.map((item) => (
-                <div className={styles.project} key={item.pid}>
+                <div
+                  className={styles.project}
+                  key={item.pid}
+                  onClick={() => handleProjectCardClick(item)}
+                >
                   <div className={styles.image}>
                     <img
                       src={
