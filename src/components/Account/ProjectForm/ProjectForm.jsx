@@ -109,9 +109,12 @@ const ProjectForm = (props) => {
     if (!validateForm()) return;
 
     setSetSubmitButtonDisabled(true);
-    if (isEdit)
+    if (!isEdit) {
+      await addProjectsInDb({ ...values, refUser: props.uid });
+    } else {
       await updateProjectInDb({ ...values, refUser: props.uid }, defaults.pid);
-    else await addProjectsInDb({ ...values, refUser: props.uid });
+    }
+
     setSetSubmitButtonDisabled(false);
     if (props.onSubmission) props.onSubmission();
     if (props.onClose) props.onClose();
