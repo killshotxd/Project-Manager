@@ -16,6 +16,7 @@ import {
   collection,
   getDocs,
   query,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -108,22 +109,22 @@ const updateProjectInDb = async (project, pid) => {
 
   const docRef = doc(db, "projects", pid);
 
-  await setDoc(docRed, { ...project });
+  await setDoc(docRef, { ...project });
 };
 
 // ----------Fetch All Projects ------------
 
 const getAllProjects = async () => {
-  await getDocs(collection(db, "projects"));
+  return await getDocs(collection(db, "projects"));
 };
 
 const getAllProjectsForUser = async (uid) => {
   if (!uid) return;
   const collectionRef = collection(db, "projects");
   const condition = where("refUser", "==", uid);
-  query(collectionRef, condition);
+  const dbQuery = query(collectionRef, condition);
 
-  await getDocs(query);
+  return await getDocs(dbQuery);
 };
 
 // --------------------------------------------------------------

@@ -4,7 +4,12 @@ import { Camera, LogOut, Edit2, Trash, GitHub, Paperclip } from "react-feather";
 import InputControl from "../InputControl/InputControl";
 import { Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth, uploadImage, updateUserDb } from "../../Firebase";
+import {
+  auth,
+  uploadImage,
+  updateUserDb,
+  getAllProjectsForUser,
+} from "../../Firebase";
 import Loader from "../Loader/Loader";
 import ProjectForm from "./ProjectForm/ProjectForm";
 
@@ -95,6 +100,15 @@ const Account = (props) => {
     setSaveButtonDisabled(false);
     setShowSaveDetailsButton(false);
   };
+
+  const fetchAllProjects = async () => {
+    const result = await getAllProjectsForUser(userDetails.uid);
+    console.log(result);
+  };
+
+  useEffect(() => {
+    fetchAllProjects();
+  }, []);
 
   return isAuth ? (
     <div className={styles.container}>
