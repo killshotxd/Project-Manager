@@ -14,6 +14,8 @@ import {
   getDoc,
   addDoc,
   collection,
+  getDocs,
+  query,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -99,6 +101,31 @@ const addProjectsInDb = async (project) => {
   await addDoc(collectionRef, { ...project });
 };
 
+// ---------------Update Project----------------------
+
+const updateProjectInDb = async (project, pid) => {
+  if (typeof project !== object) return;
+
+  const docRef = doc(db, "projects", pid);
+
+  await setDoc(docRed, { ...project });
+};
+
+// ----------Fetch All Projects ------------
+
+const getAllProjects = async () => {
+  await getDocs(collection(db, "projects"));
+};
+
+const getAllProjectsForUser = async (uid) => {
+  if (!uid) return;
+  const collectionRef = collection(db, "projects");
+  const condition = where("refUser", "==", uid);
+  query(collectionRef, condition);
+
+  await getDocs(query);
+};
+
 // --------------------------------------------------------------
 // --------------Export Handler--------------
 
@@ -110,4 +137,7 @@ export {
   getUserFromDb,
   uploadImage,
   addProjectsInDb,
+  updateProjectInDb,
+  getAllProjectsForUser,
+  getAllProjects,
 };
