@@ -116,3 +116,19 @@
   text-align: center;
   width: 100%;
 }
+
+@media screen and (max-width: 975px) {
+  .container {
+    min-width: 478px;
+  }
+
+  .left .image img {
+    width: 170px;
+  }
+}
+
+@media screen and (max-width: 535px) {
+  .container {
+    min-width: 385px;
+  }
+}

@@ -195,3 +195,25 @@
 .project .links svg:hover {
   color: #22c48b;
 }
+
+@media screen and (max-width: 975px) {
+  .profile .right .row {
+    flex-direction: column;
+  }
+
+  .header .heading {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 531px) {
+  .profile {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 486px) {
+  .header .heading {
+    font-size: 1.3rem;
+  }
+}
