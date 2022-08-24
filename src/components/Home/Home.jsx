@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllProjects } from "../../Firebase";
 import { doc } from "firebase/firestore";
 import Loader from "../Loader/Loader";
+import ProjectModal from "./Project Modal/ProjectModal";
 
 const Home = (props) => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Home = (props) => {
 
   return (
     <div className={styles.container}>
+      <ProjectModal />
       <div className={styles.header}>
         <div className={styles.left}>
           <p className={styles.heading}>Project Fair</p>
