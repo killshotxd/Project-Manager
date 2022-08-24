@@ -91,7 +91,7 @@ const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
   );
 };
 
-// --------------------Update Projects----------------
+// --------------------Add Projects----------------
 
 const addProjectsInDb = async (project) => {
   if (typeof project !== "object") return;
