@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Account.module.css";
 import { Camera, LogOut, Edit2, Trash, GitHub, Paperclip } from "react-feather";
 import InputControl from "../InputControl/InputControl";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import {
   auth,
@@ -103,7 +103,15 @@ const Account = (props) => {
 
   const fetchAllProjects = async () => {
     const result = await getAllProjectsForUser(userDetails.uid);
-    console.log(result);
+    if (!result) {
+      setProjectsLoaded(true);
+      return;
+    }
+    setProjectsLoaded(true);
+    let tempProjects = [];
+    result.forEach((doc) => tempProjects.push(doc.data()));
+    setProjects(tempProjects);
+    console.log(result, tempProjects);
   };
 
   useEffect(() => {
