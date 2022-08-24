@@ -4,7 +4,11 @@ import { X } from "react-feather";
 import Modal from "../../Modal/Modal";
 import styles from "./ProjectForm.module.css";
 
-import { addProjectsInDb, uploadImage } from "../../../Firebase";
+import {
+  addProjectsInDb,
+  updateProjectInDb,
+  uploadImage,
+} from "../../../Firebase";
 
 const ProjectForm = (props) => {
   const fileInputRef = useRef();
@@ -104,7 +108,9 @@ const ProjectForm = (props) => {
   const handleSubmission = async () => {
     if (!validateForm()) return;
     setSetSubmitButtonDisabled(true);
-    await addProjectsInDb({ ...values, refUser: props.uid });
+    if (isEdit)
+      await updateProjectInDb({ ...values, refUser: props.uid }, defaults.pid);
+    else await addProjectsInDb({ ...values, refUser: props.uid });
     setSetSubmitButtonDisabled(false);
     if (props.onSubmission) props.onSubmission();
     if (props.onClose) props.onClose();
