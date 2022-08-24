@@ -105,6 +105,7 @@ const ProjectForm = (props) => {
     setSetSubmitButtonDisabled(true);
     await addProjectsInDb({ ...values, refUser: props.uid });
     setSetSubmitButtonDisabled(false);
+    if (props.onSubmission) props.onSubmission();
     if (props.onClose) props.onClose();
   };
 

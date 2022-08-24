@@ -111,7 +111,6 @@ const Account = (props) => {
     let tempProjects = [];
     result.forEach((doc) => tempProjects.push(doc.data()));
     setProjects(tempProjects);
-    console.log(result, tempProjects);
   };
 
   useEffect(() => {
@@ -122,6 +121,7 @@ const Account = (props) => {
     <div className={styles.container}>
       {showProjectForm && (
         <ProjectForm
+          onSubmission={fetchAllProjects}
           onClose={() => setShowProjectForm(false)}
           uid={userDetails.uid}
         />
