@@ -16,7 +16,7 @@
   border: none;
   outline: none;
   padding: 8px 16px;
-  background-color: #c70039;
+  background-color: #22c48b;
   color: #fff;
   border-radius: 5px;
   width: fit-content;
@@ -31,7 +31,7 @@
 }
 
 .button:hover {
-  background-color: #ffc300;
+  background-color: #33e4a6;
 }
 
 .button:active {

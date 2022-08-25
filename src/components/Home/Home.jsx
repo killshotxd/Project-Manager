@@ -78,7 +78,7 @@ const Home = (props) => {
         </div>
       </div>
 
-      <div className={styles.body}>
+      <div data-aos="fade-up" className={styles.body}>
         <p data-aos="fade-up" className={styles.title}>
           All projects
         </p>

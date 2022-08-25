@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-evenly;
   gap: 10px;
-  background-color: #581845;
+  background-color: #d3fff5;
   width: 100%;
   height: 100vh;
 }
@@ -23,7 +23,7 @@
 
 .left .heading {
   font-weight: bold;
-  color: #fff;
+
   font-size: 3rem;
 }
 
@@ -31,14 +31,13 @@
   font-weight: 500;
   font-size: 2rem;
   line-height: 2.9rem;
-  color: #fff;
 }
 
 .left button {
   border: none;
   outline: none;
   padding: 10px 16px;
-  background-color: #c70039;
+  background-color: #22c48b;
   color: #fff;
   border-radius: 5px;
   width: fit-content;
@@ -51,7 +50,7 @@
 }
 
 .left button:hover {
-  background-color: #ffc300;
+  background-color: #33e4a6;
 }
 
 .left button:active {
