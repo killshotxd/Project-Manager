@@ -126,3 +126,22 @@
     flex-direction: column;
   }
 }
+
+@media screen and (max-width: 515px) {
+  .left .heading {
+    font-size: 2rem;
+  }
+
+  .left .subHeading {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 310px) {
+  .left button {
+    font-size: 0.8rem;
+  }
+  .left .heading {
+    font-size: 1.5rem;
+  }
+}
