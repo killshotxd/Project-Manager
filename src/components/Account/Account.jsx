@@ -264,13 +264,13 @@ const Account = (props) => {
                   <div className={styles.links}>
                     <Edit2 onClick={() => handleEditClick(item)} />
                     <Trash onClick={() => handleDeletion(item.pid)} />
-                    <Link target="_blank" to={`//${item.github}`}>
+                    <a href={item.github} target="_blank">
                       <GitHub />
-                    </Link>
+                    </a>
                     {item.link ? (
-                      <Link target="_blank" to={`//${item.link}`}>
+                      <a href={item.link} target="_blank">
                         <Paperclip />
-                      </Link>
+                      </a>
                     ) : (
                       ""
                     )}

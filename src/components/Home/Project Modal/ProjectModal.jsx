@@ -23,12 +23,18 @@ const ProjectModal = (props) => {
               />
             </div>
             <div className={styles.links}>
-              <Link target="_blank" to={`//${details.github}`}>
+              <a href={details.github} target="_blank">
                 <GitHub />
-              </Link>
-              <Link target="_blank" to={`//${details.link}`}>
+              </a>
+              {/* <Link target="_blank" to={`//${details.github}`}>
+                <GitHub />
+              </Link> */}
+              <a href={details.link} target="_blank">
                 <Paperclip />
-              </Link>
+              </a>
+              {/* <Link target="_blank" to={`//${details.link}`}>
+                <Paperclip />
+              </Link> */}
             </div>
           </div>
           <div className={styles.right}>
