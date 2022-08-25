@@ -217,3 +217,9 @@
     font-size: 1.3rem;
   }
 }
+
+@media screen and (max-width: 385px) {
+  .header .heading {
+    font-size: 0.7rem;
+  }
+}

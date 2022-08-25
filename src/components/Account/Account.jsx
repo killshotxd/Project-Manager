@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Account.module.css";
-import { Camera, LogOut, Edit2, Trash, GitHub, Paperclip } from "react-feather";
+import {
+  Camera,
+  LogOut,
+  Edit2,
+  Trash,
+  GitHub,
+  Paperclip,
+  ArrowLeft,
+} from "react-feather";
 import InputControl from "../InputControl/InputControl";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import {
   auth,
@@ -16,7 +24,7 @@ import ProjectForm from "./ProjectForm/ProjectForm";
 
 const Account = (props) => {
   // --------------States----------------------
-
+  const navigate = useNavigate();
   const userDetails = props.userDetails;
   const isAuth = props.auth;
   const [progress, setProgress] = useState(0);
@@ -126,6 +134,10 @@ const Account = (props) => {
     fetchAllProjects();
   };
 
+  const navigateHome = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     fetchAllProjects();
   }, []);
@@ -143,6 +155,7 @@ const Account = (props) => {
       )}
 
       <div className={styles.header}>
+        <ArrowLeft style={{ cursor: "pointer" }} onClick={navigateHome} />
         <p className={styles.heading}>
           Welcome <span>{userDetails.name}</span>
         </p>
