@@ -6,20 +6,25 @@
 
 .header {
   width: 100%;
-  background-color: #e2fff5;
+  background-color: #ca1b5f;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
 }
 
+.header svg {
+  color: #fff;
+}
+
 .header .heading {
   font-weight: 600;
   font-size: 2.5rem;
+  color: #fff;
 }
 
 .header .heading span {
-  color: #22c48b;
+  color: #ffc300;
   font-size: 2.7;
   text-transform: capitalize;
 }
@@ -38,7 +43,7 @@
 }
 
 .header .logout {
-  color: rgb(51, 51, 51);
+  color: #fff;
   font-weight: 500;
   font-size: 0.9rem;
   transition: 200ms;
@@ -46,7 +51,7 @@
 
 .header .logout:hover,
 .header .logout:hover svg {
-  color: #22c48b;
+  color: #ffc300;
 }
 
 .container .section {
