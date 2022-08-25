@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { getAllProjects } from "../../Firebase";
 import { doc } from "firebase/firestore";
 import Loader from "../Loader/Loader";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import ProjectModal from "./Project Modal/ProjectModal";
 
 const Home = (props) => {
@@ -45,6 +47,11 @@ const Home = (props) => {
     fetchAllProjects();
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   return (
     <div className={styles.container}>
       {showProjectModal && (
@@ -55,7 +62,7 @@ const Home = (props) => {
       )}
 
       <div className={styles.header}>
-        <div className={styles.left}>
+        <div data-aos="fade-right" className={styles.left}>
           <p className={styles.heading}>Project Manager</p>
           <p className={styles.subHeading}>
             One stop destination for all your WebApps/WebSites 🚀
@@ -66,14 +73,16 @@ const Home = (props) => {
           </button>
         </div>
 
-        <div className={styles.right}>
+        <div data-aos="fade-left" className={styles.right}>
           <img src={designIcon} alt="" />
         </div>
       </div>
 
       <div className={styles.body}>
-        <p className={styles.title}>All projects</p>
-        <div className={styles.projects}>
+        <p data-aos="fade-up" className={styles.title}>
+          All projects
+        </p>
+        <div data-aos="fade-up" className={styles.projects}>
           {projectsLoaded ? (
             projects.length > 0 ? (
               projects.map((item) => (

@@ -20,6 +20,8 @@ import {
   getAllProjectsForUser,
 } from "../../Firebase";
 import Loader from "../Loader/Loader";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import ProjectForm from "./ProjectForm/ProjectForm";
 
 const Account = (props) => {
@@ -142,6 +144,11 @@ const Account = (props) => {
     fetchAllProjects();
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   return isAuth ? (
     <div className={styles.container}>
       {showProjectForm && (
@@ -154,7 +161,7 @@ const Account = (props) => {
         />
       )}
 
-      <div className={styles.header}>
+      <div data-aos="fade-down" className={styles.header}>
         <ArrowLeft style={{ cursor: "pointer" }} onClick={navigateHome} />
         <p className={styles.heading}>
           Welcome <span>{userDetails.name}</span>
@@ -171,7 +178,7 @@ const Account = (props) => {
         style={{ display: "none" }}
         onChange={handleImageChange}
       />
-      <div className={styles.section}>
+      <div data-aos="fade-right" className={styles.section}>
         <div className={styles.title}>Your Profile</div>
         <div className={styles.profile}>
           <div className={styles.left}>
@@ -240,7 +247,7 @@ const Account = (props) => {
       <hr />
 
       <div className={styles.section}>
-        <div className={styles.projectsHeader}>
+        <div data-aos="fade-left" className={styles.projectsHeader}>
           <div className={styles.title}>Your Projects</div>
           <button className="button" onClick={() => setShowProjectForm(true)}>
             Add Project

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aos": "^3.0.0-beta.6",
     "feather-icons": "^4.29.0",
     "firebase": "^9.6.7",
     "firebase-tools": "^10.2.2",
