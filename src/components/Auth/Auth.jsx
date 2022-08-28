@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, updateUserDb } from "../../Firebase";
 import styles from "./Auth.module.css";
@@ -68,6 +70,20 @@ const Auth = (props) => {
 
   // -----------------SignUp Part End ---------------
 
+  // ------------------Pass reset------------------
+
+  const handlePassReset = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, values.email)
+      .then(() => {
+        setErrMsg("Check Email for Password reset Link");
+      })
+      .catch((error) => {
+        setErrMsg(error.message);
+        // ..
+      });
+  };
+
   const handleSubmission = (event) => {
     event.preventDefault();
 
@@ -126,6 +142,17 @@ const Auth = (props) => {
               New here ? <Link to="/signUp">Create an account</Link>
             </p>
           )}
+          <p
+            onClick={handlePassReset}
+            style={{
+              cursor: "pointer",
+              marginTop: "0.5rem",
+              color: "rgb(60 176 136)",
+              textDecoration: "underline",
+            }}
+          >
+            Forgot password ?
+          </p>
         </div>
       </form>
     </div>
