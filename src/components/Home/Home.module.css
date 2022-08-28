@@ -113,19 +113,19 @@
   padding: 20px;
 }
 
-.inputContainer:hover {
-  color: #5a5a5a;
+input:hover {
+  border: 2px solid #962020;
 }
-.inputContainer:focus-within {
-  color: #22c48b !important;
+
+input:focus-within {
+  border: 1px solid #22c48b;
 }
-.inputContainer {
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+input {
+  border-radius: 1rem;
+  text-align: center;
+  height: 2rem;
+  border: 1px solid #22c48b;
 }
 
 @media screen and (max-width: 665px) {
