@@ -47,6 +47,29 @@ const Home = (props) => {
     fetchAllProjects();
   }, []);
 
+  const [name, setName] = useState("");
+
+  // the search result
+
+  const filter = (e) => {
+    const keyword = e.target.value;
+
+    if (keyword !== "") {
+      console.log(keyword);
+      const results = projects.filter((item) => {
+        return item.title.toLowerCase().startsWith(keyword.toLowerCase());
+
+        // Use the toLowerCase() method to make it case-insensitive
+      });
+      setProjects(results);
+    } else {
+      fetchAllProjects();
+      // If the text field is empty, show all users
+    }
+
+    setName(keyword);
+  };
+
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -79,11 +102,22 @@ const Home = (props) => {
       </div>
 
       <div data-aos="fade-up" className={styles.body}>
-        <p data-aos="fade-up" className={styles.title}>
-          All projects
-        </p>
+        <div className={styles.leftTitle}>
+          <p data-aos="fade-up" className={styles.title}>
+            All projects
+          </p>
+        </div>
+
+        <input
+          type="search"
+          value={name}
+          className={styles.inputContainer}
+          onChange={filter}
+          placeholder="Search Projects...."
+        />
+
         <div data-aos="fade-up" className={styles.projects}>
-          {projectsLoaded ? (
+          {projects || projectsLoaded ? (
             projects.length > 0 ? (
               projects.map((item) => (
                 <div

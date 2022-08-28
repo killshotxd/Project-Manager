@@ -113,6 +113,21 @@
   padding: 20px;
 }
 
+.inputContainer:hover {
+  color: #5a5a5a;
+}
+.inputContainer:focus-within {
+  color: #22c48b !important;
+}
+.inputContainer {
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 665px) {
   .left {
     display: flex;
