@@ -145,7 +145,7 @@ const Account = (props) => {
     await deleteProject(pid);
     fetchAllProjects();
     toast({
-      title: "Deletion Successfully",
+      title: "Deletion Successful",
       status: "success",
       duration: 3000,
       isClosable: true,
