@@ -86,9 +86,9 @@ const Home = (props) => {
 
       <div className={styles.header}>
         <div data-aos="fade-right" className={styles.left}>
-          <p className={styles.heading}>Project Manager</p>
+          <p className={styles.heading}>PROJECT MANAGER</p>
           <p className={styles.subHeading}>
-            One stop destination for all your WebApps/WebSites 🚀
+            A Project Sharing Platform for developers🚀
           </p>
           <button onClick={handleNextBtnClick}>
             {isAuth ? "Manage your Projects" : "Get Started"}

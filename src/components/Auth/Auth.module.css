@@ -2,7 +2,11 @@
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right bottom, #22c48b, #54f0b9);
+  background: linear-gradient(
+    115.3deg,
+    rgb(53, 145, 185) 7.4%,
+    rgb(255, 255, 255) 103.1%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,9 +27,6 @@
   gap: 20px;
 }
 
-.smallLink {
-}
-
 .smallLink a {
   color: #fff;
   font-weight: bold;
@@ -43,7 +44,7 @@
   border: none;
   outline: none;
   padding: 8px 16px;
-  background-color: #22c48b;
+  background-color: #10293e;
   color: #fff;
   border-radius: 5px;
   width: 100%;
@@ -58,7 +59,8 @@
 }
 
 .form button:hover {
-  background-color: #33e4a6;
+  background-color: rgb(43, 172, 223);
+  color: #fff;
 }
 
 .form button:active {
@@ -85,7 +87,7 @@
 }
 
 .bottom p a {
-  color: #22c48b;
+  color: #10293e;
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;

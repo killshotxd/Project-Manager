@@ -147,7 +147,7 @@ const Auth = (props) => {
             style={{
               cursor: "pointer",
               marginTop: "0.5rem",
-              color: "rgb(60 176 136)",
+              color: "#10293e",
               textDecoration: "underline",
             }}
           >

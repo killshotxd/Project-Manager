@@ -162,7 +162,11 @@ const Account = (props) => {
       )}
 
       <div data-aos="fade-down" className={styles.header}>
-        <ArrowLeft style={{ cursor: "pointer" }} onClick={navigateHome} />
+        <ArrowLeft
+          className={styles.back}
+          style={{ cursor: "pointer" }}
+          onClick={navigateHome}
+        />
         <p className={styles.heading}>
           Welcome <span>{userDetails.name}</span>
         </p>

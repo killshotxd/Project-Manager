@@ -6,7 +6,8 @@
 
 .header {
   width: 100%;
-  background-color: #e2fff5;
+  background-color: #264e6e;
+  color: #0c151d;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +20,7 @@
 }
 
 .header .heading span {
-  color: #22c48b;
+  color: #fff;
   font-size: 2.7;
   text-transform: capitalize;
 }
@@ -38,7 +39,7 @@
 }
 
 .header .logout {
-  color: rgb(51, 51, 51);
+  color: #0c151d;
   font-weight: 500;
   font-size: 0.9rem;
   transition: 200ms;
@@ -46,7 +47,11 @@
 
 .header .logout:hover,
 .header .logout:hover svg {
-  color: #22c48b;
+  color: #fff;
+}
+
+.back:hover {
+  color: white;
 }
 
 .container .section {
@@ -116,7 +121,7 @@
 .profile .left .image .camera svg {
   height: 22px;
   width: 22px;
-  color: #22c48b;
+  color: #10293e;
 }
 
 .profile .right {
@@ -193,7 +198,7 @@
 }
 
 .project .links svg:hover {
-  color: #22c48b;
+  color: #21639a;
 }
 
 @media screen and (max-width: 975px) {
@@ -214,7 +219,7 @@
 
 @media screen and (max-width: 486px) {
   .header .heading {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 }
 
