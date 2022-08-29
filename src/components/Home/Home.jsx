@@ -37,6 +37,7 @@ const Home = (props) => {
     result.forEach((doc) => tempProjects.push({ ...doc.data(), pid: doc.id }));
 
     setProjects(tempProjects);
+    console.log(projects);
   };
 
   const handleProjectCardClick = (project) => {
@@ -44,10 +45,18 @@ const Home = (props) => {
     setProjectDetails(project);
   };
 
+  //------------------Fetch on page Load-----------------
+
   useEffect(() => {
     fetchAllProjects();
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
+  //--------------------Filter Projects---------------------------
   const [name, setName] = useState("");
 
   // the search result
@@ -56,7 +65,6 @@ const Home = (props) => {
     const keyword = e.target.value;
 
     if (keyword !== "") {
-      console.log(keyword);
       const results = projects.filter((item) => {
         return item.title.toLowerCase().startsWith(keyword.toLowerCase());
 
@@ -71,10 +79,7 @@ const Home = (props) => {
     setName(keyword);
   };
 
-  useEffect(() => {
-    AOS.init();
-    AOS.refresh();
-  }, []);
+  //-------------------------------------------------------------------------
 
   return (
     <div className={styles.container}>
