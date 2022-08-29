@@ -250,8 +250,8 @@ const Account = (props) => {
 
       <hr />
 
-      <div className={styles.section}>
-        <div data-aos="fade-left" className={styles.projectsHeader}>
+      <div data-aos="fade-left" className={styles.section}>
+        <div className={styles.projectsHeader}>
           <div className={styles.title}>Your Projects</div>
           <button className="button" onClick={() => setShowProjectForm(true)}>
             Add Project

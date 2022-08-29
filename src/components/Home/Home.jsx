@@ -9,6 +9,7 @@ import Loader from "../Loader/Loader";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ProjectModal from "./Project Modal/ProjectModal";
+import { motion } from "framer-motion";
 
 const Home = (props) => {
   const navigate = useNavigate();
@@ -120,7 +121,8 @@ const Home = (props) => {
           {projects || projectsLoaded ? (
             projects.length > 0 ? (
               projects.map((item) => (
-                <div
+                <motion.div
+                  whileHover={{ scale: 1.2 }}
                   className={styles.project}
                   key={item.pid}
                   onClick={() => handleProjectCardClick(item)}
@@ -135,7 +137,7 @@ const Home = (props) => {
                     />
                   </div>
                   <p className={styles.title}>{item.title}</p>
-                </div>
+                </motion.div>
               ))
             ) : (
               <p>No projects found</p>
