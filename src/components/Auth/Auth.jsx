@@ -9,10 +9,10 @@ import {
 } from "firebase/auth";
 import { auth, updateUserDb } from "../../Firebase";
 import styles from "./Auth.module.css";
-
+import { useToast } from "@chakra-ui/react";
 const Auth = (props) => {
   const isSignUp = props.signUp ? true : false;
-
+  const toast = useToast();
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -37,6 +37,12 @@ const Auth = (props) => {
       .then(async () => {
         setSubmitButtonDisabled(false);
         navigate("/");
+        toast({
+          title: "Logged in Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
@@ -61,6 +67,12 @@ const Auth = (props) => {
         await updateUserDb({ name: values.name, email: values.email }, userId);
         setSubmitButtonDisabled(false);
         navigate("/");
+        toast({
+          title: "Signed up Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
@@ -76,7 +88,13 @@ const Auth = (props) => {
     const auth = getAuth();
     sendPasswordResetEmail(auth, values.email)
       .then(() => {
-        setErrMsg("Check Email for Password reset Link");
+        toast({
+          title: "Reset Link to email sent Successfully",
+          status: "success",
+          duration: 80000,
+          isClosable: true,
+        });
+        setErrMsg("");
       })
       .catch((error) => {
         setErrMsg(error.message);

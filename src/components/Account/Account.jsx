@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Account.module.css";
+import { useToast } from "@chakra-ui/react";
 import {
   Camera,
   LogOut,
@@ -27,6 +28,7 @@ import ProjectForm from "./ProjectForm/ProjectForm";
 const Account = (props) => {
   // --------------States----------------------
   const navigate = useNavigate();
+  const toast = useToast();
   const userDetails = props.userDetails;
   const isAuth = props.auth;
   const [progress, setProgress] = useState(0);
@@ -58,6 +60,13 @@ const Account = (props) => {
 
   const handleLogout = async () => {
     await signOut(auth);
+    toast({
+      title: "Signed Out Successfully",
+      // description: "We've added your project in the firebase database.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const handleCameraClick = () => {
@@ -109,6 +118,7 @@ const Account = (props) => {
     setSaveButtonDisabled(true);
     await updateUserDb({ ...userProfileValues }, userDetails.uid);
     setSaveButtonDisabled(false);
+
     setShowSaveDetailsButton(false);
   };
 
@@ -134,6 +144,12 @@ const Account = (props) => {
   const handleDeletion = async (pid) => {
     await deleteProject(pid);
     fetchAllProjects();
+    toast({
+      title: "Deletion Successfully",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const navigateHome = () => {

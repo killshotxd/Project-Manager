@@ -3,6 +3,7 @@ import InputControl from "../../InputControl/InputControl";
 import { X } from "react-feather";
 import Modal from "../../Modal/Modal";
 import styles from "./ProjectForm.module.css";
+import { useToast } from "@chakra-ui/react";
 
 import {
   addProjectsInDb,
@@ -14,7 +15,7 @@ const ProjectForm = (props) => {
   const fileInputRef = useRef();
   const defaults = props.default;
   const isEdit = props.isEdit ? true : false;
-
+  const toast = useToast();
   // --------States----------------
 
   const [values, setValues] = useState({
@@ -106,13 +107,36 @@ const ProjectForm = (props) => {
   };
 
   const handleSubmission = async () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      toast({
+        title: "Enter Correct Details",
+        description: "Form Validation fails.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
 
     setSetSubmitButtonDisabled(true);
     if (!isEdit) {
       await addProjectsInDb({ ...values, refUser: props.uid });
+      toast({
+        title: "Project Added",
+        description: "We've added your project in the firebase database.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } else {
       await updateProjectInDb({ ...values, refUser: props.uid }, defaults.pid);
+      toast({
+        title: "Project Updated",
+        description: "We've updated your project in the firebase database.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     }
 
     setSetSubmitButtonDisabled(false);

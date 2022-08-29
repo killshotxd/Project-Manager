@@ -6,6 +6,7 @@ import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
 import Loader from "./components/Loader/Loader";
 import { auth, getUserFromDb } from "./Firebase";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const App = () => {
   // ------States-------------
@@ -40,26 +41,28 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        {isDataLoaded ? (
-          <Routes>
-            {!isAuth && (
-              <>
-                <Route path="/login" element={<Auth />} />
-                <Route path="/signUp" element={<Auth signUp />} />
-              </>
-            )}
-            <Route
-              path="/account"
-              element={<Account userDetails={userDetails} auth={isAuth} />}
-            />
-            <Route path="/" element={<Home auth={isAuth} />} />
-            <Route path="/*" element={<Navigate to="/" />} />
-          </Routes>
-        ) : (
-          <Loader />
-        )}
-      </BrowserRouter>
+      <ChakraProvider>
+        <BrowserRouter>
+          {isDataLoaded ? (
+            <Routes>
+              {!isAuth && (
+                <>
+                  <Route path="/login" element={<Auth />} />
+                  <Route path="/signUp" element={<Auth signUp />} />
+                </>
+              )}
+              <Route
+                path="/account"
+                element={<Account userDetails={userDetails} auth={isAuth} />}
+              />
+              <Route path="/" element={<Home auth={isAuth} />} />
+              <Route path="/*" element={<Navigate to="/" />} />
+            </Routes>
+          ) : (
+            <Loader />
+          )}
+        </BrowserRouter>
+      </ChakraProvider>
     </div>
   );
 };
