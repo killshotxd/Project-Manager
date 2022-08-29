@@ -143,6 +143,20 @@ input {
   border: 1px solid #65dbff;
 }
 
+.homeLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.homeLinks a {
+  text-decoration: none;
+  color: #264e6e;
+}
+
+.homeLinks a:hover {
+  color: #65dbff;
+}
+
 @media screen and (max-width: 665px) {
   .left {
     display: flex;

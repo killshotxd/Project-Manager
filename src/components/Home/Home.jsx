@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import designIcon from "../../assets/designer.svg";
-import { ArrowRight } from "react-feather";
+import { ArrowRight, GitHub, Linkedin, Mail } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { getAllProjects } from "../../Firebase";
 import { doc } from "firebase/firestore";
@@ -100,6 +100,18 @@ const Home = (props) => {
             {isAuth ? "Manage your Projects" : "Get Started"}
             <ArrowRight />
           </button>
+
+          <div className={styles.homeLinks}>
+            <a href="https://github.com/killshotxd">
+              <GitHub />
+            </a>
+            <a href="https://www.linkedin.com/in/mohd-hassan-11707a223/">
+              <Linkedin />
+            </a>
+            <a href="mailto: hassanansari211@gmail.com">
+              <Mail />
+            </a>
+          </div>
         </div>
 
         <div data-aos="fade-left" className={styles.right}>
