@@ -10,6 +10,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ProjectModal from "./Project Modal/ProjectModal";
 import { motion } from "framer-motion";
+import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 
 const Home = (props) => {
   const navigate = useNavigate();
@@ -37,7 +38,6 @@ const Home = (props) => {
     result.forEach((doc) => tempProjects.push({ ...doc.data(), pid: doc.id }));
 
     setProjects(tempProjects);
-    console.log(projects);
   };
 
   const handleProjectCardClick = (project) => {
@@ -92,7 +92,11 @@ const Home = (props) => {
 
       <div className={styles.header}>
         <div data-aos="fade-right" className={styles.left}>
-          <p className={styles.heading}>PROJECT MANAGER</p>
+          <p className={styles.heading}>
+            <RoughNotation type="box" show={true} animationDelay="1000">
+              PROJECT MANAGER
+            </RoughNotation>
+          </p>
           <p className={styles.subHeading}>
             A Project Sharing Platform for developers🚀
           </p>
