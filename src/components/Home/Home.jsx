@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import designIcon from "../../assets/designer.svg";
-import newDesigner from "../../assets/newDesigner.svg";
 import { ArrowRight, GitHub, Linkedin, Mail } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { getAllProjects } from "../../Firebase";
@@ -120,7 +119,7 @@ const Home = (props) => {
         </div>
 
         <div data-aos="fade-left" className={styles.right}>
-          <img src={newDesigner} alt="" />
+          <img src={designIcon} alt="" />
         </div>
       </div>
 
