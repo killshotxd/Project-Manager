@@ -118,7 +118,7 @@ const Home = (props) => {
           </div>
         </div>
 
-        <div data-aos="fade-left" className={styles.right}>
+        <div className={styles.right}>
           <img src={designIcon} alt="" />
         </div>
       </div>
