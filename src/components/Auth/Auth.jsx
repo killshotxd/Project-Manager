@@ -6,13 +6,10 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   sendPasswordResetEmail,
-  signInWithPopup,
-  GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, updateUserDb } from "../../Firebase";
 import styles from "./Auth.module.css";
 import { useToast } from "@chakra-ui/react";
-import google from "../../assets/google.svg";
 const Auth = (props) => {
   const isSignUp = props.signUp ? true : false;
   const toast = useToast();
@@ -30,9 +27,13 @@ const Auth = (props) => {
   // -----------------Login Part ---------------
 
   const handleLogin = () => {
-    const googleProvide = new GoogleAuthProvider();
+    if (!values.email || !values.password) {
+      setErrMsg("All fields are required");
+      return;
+    }
+
     setSubmitButtonDisabled(true);
-    signInWithPopup(auth, googleProvide)
+    signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async () => {
         setSubmitButtonDisabled(false);
         navigate("/");
@@ -54,8 +55,13 @@ const Auth = (props) => {
   // -----------------SignUp Part ---------------
 
   const handleSignUp = () => {
+    if (!values.name || !values.email || !values.password) {
+      setErrMsg("All fields are required");
+      return;
+    }
+
     setSubmitButtonDisabled(true);
-    createUserWithEmailAndPassword(auth)
+    createUserWithEmailAndPassword(auth, values.email, values.password)
       .then(async (response) => {
         const userId = response.user.uid;
         await updateUserDb({ name: values.name, email: values.email }, userId);
@@ -109,23 +115,63 @@ const Auth = (props) => {
         <Link to="/">{"< Back to Home"}</Link>
       </p>
       <form className={styles.form} onSubmit={handleSubmission}>
-        <p className={styles.heading}>SignUp or Login</p>
+        <p className={styles.heading}>{isSignUp ? "SignUp" : "Login"}</p>
 
-        <button
-          style={{
-            width: "fit-content",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "auto",
-          }}
-        >
-          <img width={40} src={google} alt="google" />
-        </button>
+        {isSignUp && (
+          <InputControl
+            label="Name"
+            placeholder="Enter your name"
+            onChange={(event) =>
+              setValues((prev) => ({ ...prev, name: event.target.value }))
+            }
+          />
+        )}
+
+        <InputControl
+          label="Email"
+          placeholder="Enter your email"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, email: event.target.value }))
+          }
+        />
+
+        <InputControl
+          label="Password"
+          placeholder="Enter your password"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, password: event.target.value }))
+          }
+          isPassword
+        />
 
         <p className={styles.error}> {errMsg} </p>
 
-        <div className={styles.bottom}></div>
+        <button type="submit" disabled={submitButtonDisabled}>
+          {isSignUp ? "SignUp" : "Login"}
+        </button>
+
+        <div className={styles.bottom}>
+          {isSignUp ? (
+            <p>
+              Already have an account ? <Link to="/login">Login here</Link>
+            </p>
+          ) : (
+            <p>
+              New here ? <Link to="/signUp">Create an account</Link>
+            </p>
+          )}
+          <p
+            onClick={handlePassReset}
+            style={{
+              cursor: "pointer",
+              marginTop: "0.5rem",
+              color: "#10293e",
+              textDecoration: "underline",
+            }}
+          >
+            Forgot password ?
+          </p>
+        </div>
       </form>
     </div>
   );
