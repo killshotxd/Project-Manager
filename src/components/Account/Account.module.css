@@ -7,7 +7,7 @@
 .header {
   width: 100%;
   background-color: #264e6e;
-  color: #0c151d;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,7 +39,7 @@
 }
 
 .header .logout {
-  color: #0c151d;
+  color: #fff;
   font-weight: 500;
   font-size: 0.9rem;
   transition: 200ms;
