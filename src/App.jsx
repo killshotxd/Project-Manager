@@ -33,11 +33,13 @@ const App = () => {
       }
 
       setIsAuth(true);
-      fetchUserDetails(user.uid);
+      setTimeout(() => {
+        fetchUserDetails(user.uid);
+      }, 3000);
     });
 
     return () => listener();
-  }, []);
+  }, [auth]);
 
   // -------------Main App Return-------------------
 
@@ -45,7 +47,7 @@ const App = () => {
     <div className="App">
       <ChakraProvider>
         <BrowserRouter>
-          {isDataLoaded ? (
+          {isDataLoaded && userDetails ? (
             <Routes>
               {!isAuth && (
                 <>
@@ -57,7 +59,10 @@ const App = () => {
                 path="/account"
                 element={<Account userDetails={userDetails} auth={isAuth} />}
               />
-              <Route path="/" element={<Home auth={isAuth} />} />
+              <Route
+                path="/"
+                element={<Home userDetails={userDetails} auth={isAuth} />}
+              />
               <Route path="/*" element={<Navigate to="/" />} />
             </Routes>
           ) : (

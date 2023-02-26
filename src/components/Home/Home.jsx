@@ -3,7 +3,7 @@ import styles from "./Home.module.css";
 import designIcon from "../../assets/designer.svg";
 import { ArrowRight, GitHub, Linkedin, Mail } from "react-feather";
 import { useNavigate } from "react-router-dom";
-import { getAllProjects } from "../../Firebase";
+import { getAllProjects, getUserFromDb } from "../../Firebase";
 import { doc } from "firebase/firestore";
 import Loader from "../Loader/Loader";
 import AOS from "aos";
@@ -16,7 +16,7 @@ const Home = (props) => {
   const navigate = useNavigate();
 
   const isAuth = props.auth ? true : false;
-
+  const userDetails = props.userDetails ? true : false;
   const [projectsLoaded, setProjectsLoaded] = useState(false);
   const [projects, setProjects] = useState([]);
   const [showProjectModal, setShowProjectModal] = useState(false);
@@ -139,7 +139,7 @@ const Home = (props) => {
         />
 
         <div data-aos="fade-up" className={styles.projects}>
-          {projects || projectsLoaded ? (
+          {projects || projectsLoaded || userDetails ? (
             projects.length > 0 ? (
               projects.map((item) => (
                 <motion.div

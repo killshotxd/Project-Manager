@@ -19,6 +19,7 @@ import {
   updateUserDb,
   deleteProject,
   getAllProjectsForUser,
+  getUserFromDb,
 } from "../../Firebase";
 import Loader from "../Loader/Loader";
 import AOS from "aos";
@@ -30,14 +31,13 @@ const Account = (props) => {
   const navigate = useNavigate();
   const toast = useToast();
   const userDetails = props.userDetails;
+  console.log(userDetails);
   const isAuth = props.auth;
   const [progress, setProgress] = useState(0);
   const [profileImageUploadStarted, setProfileImageUploadStarted] =
     useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState(
-    userDetails?.photoURL ||
-      userDetails?.profileImage ||
-      "https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png"
+    userDetails?.profileImage
   );
   const imagePicker = useRef();
 
@@ -204,7 +204,15 @@ const Account = (props) => {
         <div className={styles.profile}>
           <div className={styles.left}>
             <div className={styles.image}>
-              <img src={profileImageUrl} alt="profile" />
+              {userDetails.profileImage ? (
+                <img src={profileImageUrl} alt="profile" />
+              ) : (
+                <img
+                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png"
+                  alt="profile"
+                />
+              )}
+
               <div className={styles.camera} onClick={handleCameraClick}>
                 <Camera />
               </div>

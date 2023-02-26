@@ -8,11 +8,20 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
+  GithubAuthProvider,
 } from "firebase/auth";
-import { auth, updateUserDb } from "../../Firebase";
+import {
+  auth,
+  db,
+  firebaseApp,
+  getUserFromDb,
+  updateUserDb,
+} from "../../Firebase";
 import styles from "./Auth.module.css";
 import { useToast } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
+import { GoMarkGithub } from "react-icons/go";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 const Auth = (props) => {
   const isSignUp = props.signUp ? true : false;
   const toast = useToast();
@@ -57,11 +66,56 @@ const Auth = (props) => {
     const gp = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, gp);
     const userId = result.user.uid;
-    await updateUserDb(
-      { name: result.user.displayName, email: result.user.email },
-      userId
-    );
+
     console.log(result);
+    // check if user exists in the database
+    const exists = await getUserFromDb(userId);
+    console.log(exists);
+
+    if (exists) {
+      console.log("User already exists in database, logging in...");
+      navigate("/");
+      toast({
+        title: "Successfully logged in...",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      // user does not exist in database, create a new user document
+      await updateUserDb(
+        {
+          name: result.user.displayName,
+          email: result.user.email,
+        },
+        userId
+      );
+      navigate("/");
+      toast({
+        title: "Successfully Signed in...",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      console.log("User created in database!");
+    }
+  };
+
+  const handleGitLogin = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+    } catch (error) {
+      toast({
+        title:
+          "Email Already exists with different provider Sign In with that Provider",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      console.error(error);
+    }
   };
 
   // ----------------Login Part End ---------------
@@ -205,9 +259,11 @@ const Auth = (props) => {
               alignItems: "center",
               marginTop: "1rem",
               cursor: "pointer",
+              gap: "1rem",
             }}
           >
             <FcGoogle onClick={handlePopupLogin} size={30} />
+            <GoMarkGithub onClick={handleGitLogin} size={30} />
           </div>
         </div>
       </form>
