@@ -6,10 +6,13 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   sendPasswordResetEmail,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, updateUserDb } from "../../Firebase";
 import styles from "./Auth.module.css";
 import { useToast } from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
 const Auth = (props) => {
   const isSignUp = props.signUp ? true : false;
   const toast = useToast();
@@ -48,6 +51,17 @@ const Auth = (props) => {
         setSubmitButtonDisabled(false);
         setErrMsg(err.message);
       });
+  };
+
+  const handlePopupLogin = async () => {
+    const gp = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, gp);
+    const userId = result.user.uid;
+    await updateUserDb(
+      { name: result.user.displayName, email: result.user.email },
+      userId
+    );
+    console.log(result);
   };
 
   // ----------------Login Part End ---------------
@@ -150,7 +164,7 @@ const Auth = (props) => {
           {isSignUp ? "SignUp" : "Login"}
         </button>
 
-        <div className={styles.bottom}>
+        <div style={{ marginBottom: "1rem" }} className={styles.bottom}>
           {isSignUp ? (
             <p>
               Already have an account ? <Link to="/login">Login here</Link>
@@ -167,10 +181,34 @@ const Auth = (props) => {
               marginTop: "0.5rem",
               color: "#10293e",
               textDecoration: "underline",
+              marginBottom: "1rem",
             }}
           >
             Forgot password ?
           </p>
+          <hr />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+              fontWeight: "bold",
+            }}
+          >
+            Or SignUp/Login Using :
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "1rem",
+              cursor: "pointer",
+            }}
+          >
+            <FcGoogle onClick={handlePopupLogin} size={30} />
+          </div>
         </div>
       </form>
     </div>

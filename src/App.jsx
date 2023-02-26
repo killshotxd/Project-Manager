@@ -18,12 +18,14 @@ const App = () => {
   const fetchUserDetails = async (uid) => {
     const userDetails = await getUserFromDb(uid);
     setUserDetails(userDetails);
+    console.log(userDetails);
     setIsDataLoaded(true);
   };
 
   // --------UseEffect for detecting state change---
   useEffect(() => {
     const listener = auth.onAuthStateChanged((user) => {
+      console.log(user);
       if (!user) {
         setIsDataLoaded(true);
         setIsAuth(false);

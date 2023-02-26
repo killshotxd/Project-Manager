@@ -35,16 +35,17 @@ const Account = (props) => {
   const [profileImageUploadStarted, setProfileImageUploadStarted] =
     useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState(
-    userDetails.profileImage ||
+    userDetails?.photoURL ||
+      userDetails?.profileImage ||
       "https://cdn.iconscout.com/icon/premium/png-256-thumb/developer-5-338076.png"
   );
   const imagePicker = useRef();
 
   const [userProfileValues, setUserProfileValues] = useState({
-    name: userDetails.name || "",
-    designation: userDetails.designation || "",
-    github: userDetails.github || "",
-    linkedin: userDetails.linkedin || "",
+    name: userDetails?.name || "",
+    designation: userDetails?.designation || "",
+    github: userDetails?.github || "",
+    linkedin: userDetails?.linkedin || "",
   });
 
   const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
